@@ -24,14 +24,17 @@ cmake .. \
     -DBUILD_opencv_dnn=OFF \
     -DBUILD_opencv_dnn_objdetect=OFF \
     -DBUILD_opencv_rgbd=OFF \
+    -DBUILD_opencv_xfeatures2d=OFF  \
     -DTINYDNN_USE_NNPACK=OFF \
     -DTINYDNN_USE_TBB=ON \
     -DTINYDNN_USE_OMP=ON \
     -DENABLE_FAST_MATH=ON \
+    -DWITH_PROTOBUF=OFF \
     -DWITH_OPENMP=ON \
     -DWITH_TBB=ON \
     -DWITH_JPEG=ON \
     -DWITH_IPP=OFF \
+    -DWITH_WEBP=OFF \
     -DMKL_WITH_TBB=ON \
     -DMKL_WITH_OPENMP=ON \
     -DBUILD_opencv_python2=OFF \
