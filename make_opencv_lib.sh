@@ -7,6 +7,7 @@
 # install requirements
 # cuda9.0
 sudo apt-get install ffmpeg libavcodec-dev libavformat-dev libavdevice-dev
+sudo apt-get install libgtk2.0-dev
 
 
 # get opencv source code
