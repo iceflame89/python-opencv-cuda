@@ -4,6 +4,8 @@
 #########################################################################
 #!/bin/bash
 
+# for python3.7
+
 python_root=$HOME/anaconda3
 install_path=$HOME/opencv_install
 
@@ -12,7 +14,7 @@ cd build
 cmake .. \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DWITH_CUDA=ON \
-    -DCMAKE_INSTALL_PREFIX=$install_path \
+    -DCMAKE_INSTALL_PREFIX=${install_path} \
     -DOPENCV_EXTRA_MODULES_PATH="../../opencv_contrib-3.4.2/modules" \
     -DINSTALL_PYTHON_EXAMPLES=OFF \
     -DINSTALL_C_EXAMPLES=OFF \

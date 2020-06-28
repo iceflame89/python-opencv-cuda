@@ -4,15 +4,17 @@
 #########################################################################
 #!/bin/bash
 
+# for python3.6
+
 python_root=$HOME/anaconda3
-install_path=$HOME/local/install
+install_path=$HOME/opencv_install
 
 mkdir build
 cd build
 cmake .. \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DWITH_CUDA=ON \
-    -DCMAKE_INSTALL_PREFIX=$install_path \
+    -DCMAKE_INSTALL_PREFIX=${install_path} \
     -DOPENCV_EXTRA_MODULES_PATH="../../opencv_contrib-3.4.2/modules" \
     -DINSTALL_PYTHON_EXAMPLES=OFF \
     -DINSTALL_C_EXAMPLES=OFF \
@@ -24,14 +26,17 @@ cmake .. \
     -DBUILD_opencv_dnn=OFF \
     -DBUILD_opencv_dnn_objdetect=OFF \
     -DBUILD_opencv_rgbd=OFF \
+    -DBUILD_opencv_xfeatures2d=OFF  \
     -DTINYDNN_USE_NNPACK=OFF \
     -DTINYDNN_USE_TBB=ON \
     -DTINYDNN_USE_OMP=ON \
     -DENABLE_FAST_MATH=ON \
+    -DWITH_PROTOBUF=OFF \
     -DWITH_OPENMP=ON \
     -DWITH_TBB=ON \
     -DWITH_JPEG=ON \
     -DWITH_IPP=OFF \
+    -DWITH_WEBP=OFF \
     -DMKL_WITH_TBB=ON \
     -DMKL_WITH_OPENMP=ON \
     -DBUILD_opencv_python2=OFF \
@@ -46,3 +51,4 @@ cmake .. \
     -DPYTHON3_LIBRARIES="${python_root}/lib/libpython3.6m.so"
 
 make -j8
+make install
