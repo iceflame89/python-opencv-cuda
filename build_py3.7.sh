@@ -5,7 +5,7 @@
 #!/bin/bash
 
 python_root=$HOME/anaconda3
-install_path=$HOME/local/install
+install_path=$HOME/opencv_install
 
 mkdir build
 cd build
@@ -49,3 +49,4 @@ cmake .. \
     -DPYTHON3_LIBRARIES="${python_root}/lib/libpython3.7m.so"
 
 make -j8
+make install
