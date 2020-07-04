@@ -56,11 +56,17 @@ namespace cv
 { 
     namespace pythoncuda 
     {
+        CV_EXPORTS_W void gpucvtColor(InputArray src, InputOutputArray dst, int code);
+
         CV_EXPORTS_W void cpuOpticalFlowFarneback( InputArray prev, InputArray next, InputOutputArray flow,
                                            double pyr_scale, int levels, int winsize,
                                            int iterations, int poly_n, double poly_sigma,
                                            int flags );
         
+        CV_EXPORTS_W void gpuOpticalFlowFarnebackBGR( InputArray prev, InputArray next, InputOutputArray flow,
+                                           double pyr_scale, int levels, int winsize,
+                                           int iterations, int poly_n, double poly_sigma,
+                                           int flags );
         CV_EXPORTS_W void gpuOpticalFlowFarneback( InputArray prev, InputArray next, InputOutputArray flow,
                                            double pyr_scale, int levels, int winsize,
                                            int iterations, int poly_n, double poly_sigma,

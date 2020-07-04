@@ -51,6 +51,13 @@ namespace cv
 {
     namespace pythoncuda
     {
+        CV_EXPORTS_W void gpucvtColor(InputArray src, InputOutputArray dst, int code)
+        {
+            cv::cuda::GpuMat d_src, d_dst;
+            d_src.upload(src);
+            cv::cuda::cvtColor(d_src, d_dst, code);
+            d_dst.download(dst);
+        }
 
         CV_EXPORTS_W void cpuOpticalFlowFarneback( InputArray prev, InputArray next, InputOutputArray flow,
                                            double pyr_scale, int levels, int winsize,
@@ -60,6 +67,32 @@ namespace cv
                                         iterations, poly_n, poly_sigma, flags);
         }
         
+        CV_EXPORTS_W void gpuOpticalFlowFarnebackBGR( InputArray prev, InputArray next, InputOutputArray flow,
+                                           double pyr_scale, int levels, int winsize,
+                                           int iterations, int poly_n, double poly_sigma, int flags )
+        {
+            cv::Ptr<cv::cuda::FarnebackOpticalFlow> farn = cv::cuda::FarnebackOpticalFlow::create();
+            farn->setPyrScale(pyr_scale);
+            farn->setNumLevels(levels);
+            farn->setFastPyramids(false);
+            farn->setWinSize(winsize);
+            farn->setNumIters(iterations);
+            farn->setPolyN(poly_n);
+            farn->setPolySigma(poly_sigma);
+            farn->setFlags(flags);
+
+            cv::cuda::GpuMat d_flow, d_prev, d_next;
+            d_prev.upload(prev);
+            d_next.upload(next);
+
+            cv::cuda::GpuMat d_prev_gray, d_next_gray;
+            cv::cuda::cvtColor(d_prev, d_prev_gray, cv::COLOR_BGR2GRAY);
+            cv::cuda::cvtColor(d_next, d_next_gray, cv::COLOR_BGR2GRAY);
+
+            farn->calc(d_prev_gray, d_next_gray, d_flow);
+            d_flow.download(flow);
+        }
+
         CV_EXPORTS_W void gpuOpticalFlowFarneback( InputArray prev, InputArray next, InputOutputArray flow,
                                            double pyr_scale, int levels, int winsize,
                                            int iterations, int poly_n, double poly_sigma, int flags )
