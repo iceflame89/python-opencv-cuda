@@ -49,28 +49,43 @@ def findOpticalFlow(inputVideo, outputVideo, useCuda = False, printFrames = Fals
     # fps = cap.get(cv2.CAP_PROP_FPS)
     # print('framerate: ', fps)
     # out = cv2.VideoWriter(outputVideo, codec, fps, (prev.shape[0], prev.shape[1]))
-    g_prev = cv2.cvtColor(prev, cv2.COLOR_BGR2GRAY)
+    #g_prev = cv2.cvtColor(prev, cv2.COLOR_BGR2GRAY)
+    g_prev = prev
     count = 1
     start = time()
     while(cap.isOpened()):
+        t0 = time()
         ret, next = cap.read()
+        t1 = time()
         if ret==True:
-            g_next = cv2.cvtColor(next, cv2.COLOR_BGR2GRAY)
+            #g_next = cv2.cvtColor(next, cv2.COLOR_BGR2GRAY)
+            #g_next = cv2.pythoncuda.gpucvtColor(next, None, cv2.COLOR_BGR2GRAY)
+            g_next = next
+            t2 = time()
             if useCuda:
-                flow = cv2.pythoncuda.gpuOpticalFlowFarneback(g_prev, g_next, None, 0.5, 3, 15, 3, 5, 1.2, 0)
+                flow = cv2.pythoncuda.gpuOpticalFlowFarnebackBGR(g_prev, g_next, None, 0.5, 3, 15, 3, 5, 1.2, 0)
                 outputFile = 'output/gpu/gpu_frame_{}.png'.format(count)
             else:
                 flow = cv2.pythoncuda.cpuOpticalFlowFarneback(g_prev, g_next, None, 0.5, 3, 15, 3, 5, 1.2, 0)
                 outputFile = 'output/cpu/cpu_frame_{}.png'.format(count)
 
-            output = draw_flow(g_prev, flow)
-            cv2.imwrite(outputFile, output)
+            t3 = time()
+            #output = draw_flow(g_prev, flow)
+            t4 = time()
+            #cv2.imwrite(outputFile, output)
+            t5 = time()
             g_prev = g_next
             if printFrames:
                 print('frame: ', count)
             count += 1
         else:
             break
+        print('time read frame  {}'.format(t1-t0))
+        print('time togray      {}'.format(t2-t1))
+        print('time opticalflow {}'.format(t3-t2))
+        print('time draw        {}'.format(t4-t3))
+        print('time imwrite     {}'.format(t5-t4))
+        print('time total       {}'.format(t5-t0))
     cap.release()
     count -= 1
     # out.release()
