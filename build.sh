@@ -4,10 +4,14 @@
 #########################################################################
 #!/bin/bash
 
+bash fix.sh
+
 # for python3.6
 
 python_root=$HOME/anaconda3
 install_path=$HOME/opencv_install
+
+export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:$LD_LIBRARY_PATH
 
 mkdir build
 cd build

@@ -19,7 +19,7 @@ unzip -q 3.4.2.zip
 mv 3.4.2.zip opencv_contrib-3.4.2.zip
 
 # copy custom module to opencv_contrib
-cp -r c++/pythoncuda opencv_contrib/modules
+cp -r c++/pythoncuda opencv_contrib-3.4.2/modules
 
 # build opencv
 cp build_py3.7.sh opencv-3.4.2
