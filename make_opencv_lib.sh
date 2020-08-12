@@ -23,6 +23,7 @@ cp -r c++/pythoncuda opencv_contrib-3.4.2/modules
 
 # build opencv
 cp build_py3.7.sh opencv-3.4.2
+cp fix.sh opencv-3.4.2
 cd opencv-3.4.2 && bash build_py3.7.sh
 
 

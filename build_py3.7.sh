@@ -16,6 +16,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:$LD_LIBRARY_PATH
 mkdir build
 cd build
 cmake .. \
+    -DCUDA_NVCC_FLAGS=--expt-relaxed-constexpr \
     -DCMAKE_BUILD_TYPE=RELEASE \
     -DWITH_CUDA=ON \
     -DCMAKE_INSTALL_PREFIX=${install_path} \
